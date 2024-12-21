@@ -10,7 +10,10 @@ RUN apt-get update && apt-get install -y \
     unzip \
     zip \
     git \
-    libzip-dev && \
+    libzip-dev \
+    curl \
+    nodejs \
+    npm && \
     docker-php-ext-install pdo pdo_pgsql zip
 
 # Enable Apache rewrite module
@@ -33,6 +36,10 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
+
+# Install Node.js dependencies and build assets with Vite
+RUN npm install
+RUN npm run build
 
 # Expose the web server port
 EXPOSE 80
