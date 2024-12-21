@@ -17,4 +17,15 @@ export default defineConfig({
             },
         }),
     ],
+    base: '/',  // Ensures assets are referenced relative to the root in production
+    build: {
+        // Ensure all assets are named appropriately and do not break relative URLs
+        rollupOptions: {
+            output: {
+                assetFileNames: 'assets/[name]-[hash].css',
+                chunkFileNames: 'assets/[name]-[hash].js',
+                entryFileNames: 'assets/[name]-[hash].js',
+            },
+        },
+    }
 });
